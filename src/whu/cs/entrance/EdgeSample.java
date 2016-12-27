@@ -53,7 +53,7 @@ public class EdgeSample {
 				int[][] sampled = new int[sample][2];
 				for (int i = 0; i < sample; i++) {
 					int top = random.nextInt(nodes.size());
-					List<Integer> adjs = edges.get(top);
+					List<Integer> adjs = edgesCopy.get(top);
 					if (adjs == null || adjs.size() < 2) {
 						i--;
 						continue;
