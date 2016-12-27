@@ -47,6 +47,7 @@ public class FileUtils {
 		int node0, node1;
 		while (null != (line = br.readLine())) {
 			String[] items = line.split("\\s+");
+			if(items[0].equals(items[1])){System.out.println("self to self: "+line);}
 			edgeNum++;
 			node0 = nodes.indexOf(items[0]);
 			node1 = nodes.indexOf(items[1]);

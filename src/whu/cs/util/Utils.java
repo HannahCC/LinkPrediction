@@ -49,12 +49,12 @@ public class Utils {
 		List<Integer> adjs = edges.get(top);
 		flag = adjs.remove(tail);
 		if (!flag) {
-			System.out.println("error!");
+			System.out.println("can not find edge2 : " + top + ":" + tail);
 		}
 		adjs = edges.get(tail);
 		flag = adjs.remove(top);
 		if (!flag) {
-			System.out.println("error2!");
+			System.out.println("can not find edge2 : " + tail + ":" + top);
 		}
 
 	}
