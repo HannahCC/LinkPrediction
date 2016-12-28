@@ -61,12 +61,16 @@ public class LinkPredict {
 
 				for (int i = 0; i < size; i++) {
 					double[] vector1 = nodeVectors.get(nodes.get(i));
+					if (vector1 == null)
+						continue;
 					id1 = Integer.parseInt(nodes.get(i));
 					for (int j = i + 1; j < size; j++) {
 						if (edges.get(i).contains(j)) {
 							continue;
 						}
 						double[] vector2 = nodeVectors.get(nodes.get(j));
+						if (vector2 == null)
+							continue;
 						double similarity = Utils.cosineSimilarity(vector1,
 								vector2);
 						if (similarity > similars[0].similarity) {

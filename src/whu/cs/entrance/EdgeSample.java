@@ -54,12 +54,14 @@ public class EdgeSample {
 				for (int i = 0; i < sample; i++) {
 					int top = random.nextInt(nodes.size());
 					List<Integer> adjs = edgesCopy.get(top);
-					if (adjs == null || adjs.size() < 2) {
+					if (adjs.size() == 0 || (count < 3 && adjs.size() < 2)) {
+						count++;
 						i--;
 						continue;
 					}
 					int tail = adjs.get(random.nextInt(adjs.size()));
-					if (edgesCopy.get(tail).size() < 2) {
+					if (count < 3 && edgesCopy.get(tail).size() < 2) {
+						count++;
 						i--;
 						continue;
 					}
