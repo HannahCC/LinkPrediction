@@ -59,7 +59,7 @@ public class EdgeSample {
 						continue;
 					}
 					int tail = adjs.get(random.nextInt(adjs.size()));
-					if (edges.get(tail).size() < 2) {
+					if (edgesCopy.get(tail).size() < 2) {
 						i--;
 						continue;
 					}
