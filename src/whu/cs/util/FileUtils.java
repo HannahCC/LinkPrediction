@@ -201,6 +201,7 @@ public class FileUtils {
 		for (int s : ks) {
 			bw.write(s + "\t");
 		}
+		bw.write("\r\n");
 		return bw;
 	}
 
@@ -224,7 +225,10 @@ public class FileUtils {
 	public static void saveRes(BufferedWriter bw, long res) throws IOException {
 		bw.write(df.format(res) + "\t");
 	}
-	
+
+	public static void saveInfo(BufferedWriter bw, String info) throws IOException {
+		bw.write(info + "\r\n");
+	}
 	public static void saveResClose(BufferedWriter bw) throws IOException {
 		bw.flush();
 		bw.close();
