@@ -59,6 +59,10 @@ public class EdgeSample {
 						continue;
 					}
 					int tail = adjs.get(random.nextInt(adjs.size()));
+					if (edges.get(tail).size() < 2) {
+						i--;
+						continue;
+					}
 					Utils.removeEdge(edgesCopy, top, tail);
 					if (count < 3 && isConnected
 							&& !Utils.isConnected(edgesCopy)) {
