@@ -234,5 +234,19 @@ public class FileUtils {
 		bw.close();
 	}
 
+	public static void writeMap(String filename, Map<String, StringBuilder> map, int size)
+			throws IOException {
+		File output_file = new File(filename);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(output_file));
+		bw.write(map.size()+" "+size+"\r\n");
+		for (Entry<String, StringBuilder> entry : map.entrySet()) {
+			bw.write(entry.getKey() + " " + entry.getValue().toString().trim()
+					+ "\r\n");
+		}
+		bw.flush();
+		bw.close();
+
+	}
+
 
 }
