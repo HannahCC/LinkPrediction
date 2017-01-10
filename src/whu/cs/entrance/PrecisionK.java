@@ -45,6 +45,8 @@ public class PrecisionK {
 		for (int edgePercent : edgePercents) {
 			String dirname = resPath + "sampled" + edgePercent + "percent\\";
 			FileUtils.saveInfo(bw, edgePercent+"%");
+			for (int i = 0; i < kn; i++)
+				precisionAvg[i] = 0;
 			for (int f = 0; f < fold; f++) {
 				System.out.println("start to calculate :" + edgePercent + "/"
 						+ f);
