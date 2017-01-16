@@ -40,7 +40,7 @@ public class LinkPredict {
 		List<String> nodes = new ArrayList<String>();
 		FileUtils.readGraph(graphFile, nodes);
 		for (int edgePercent : edgePercents) {
-			String dirname = resPath + "sampled" + edgePercent + "percent\\";
+			String dirname = resPath + edgePercent + "\\";
 			for (int f = 0; f < fold; f++) {
 				System.out
 						.println("start to predict :" + edgePercent + "/" + f);

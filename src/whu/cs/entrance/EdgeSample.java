@@ -44,8 +44,8 @@ public class EdgeSample {
 		Random random = new Random(1);
 		int count = 0;
 		for (int edgePercent : edgePercents) {
-			String sampledGraphFile = resPath + "sampled" + edgePercent
-					+ "percent\\graphs\\";
+			String sampledGraphFile = resPath + edgePercent
+					+ "\\graphs\\";
 			int sample = (int) ((float) edgePercent / 100 * sum);
 			for (int f = 0; f < fold; f++) {
 				System.out.println("start to sample :" + edgePercent + "/" + f
@@ -84,8 +84,8 @@ public class EdgeSample {
 					sampled[i][1] = tail;
 				}
 				FileUtils.mkdirs(sampledGraphFile + f + "\\");
-				FileUtils.mkdirs(resPath + "sampled" + edgePercent
-						+ "percent\\predicts\\" + f + "\\");
+				FileUtils.mkdirs(resPath + edgePercent
+						+ "\\predicts\\" + f + "\\");
 				FileUtils.saveGraph(sampledGraphFile + f + "\\graph.edgelist",
 						nodes, edgesCopy);
 				FileUtils.saveGraph(

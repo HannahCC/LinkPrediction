@@ -43,7 +43,7 @@ public class PrecisionK {
 		double[] precision = new double[kn];
 		int hitted = 0;
 		for (int edgePercent : edgePercents) {
-			String dirname = resPath + "sampled" + edgePercent + "percent\\";
+			String dirname = resPath + edgePercent + "\\";
 			FileUtils.saveInfo(bw, edgePercent+"%");
 			for (int i = 0; i < kn; i++)
 				precisionAvg[i] = 0;

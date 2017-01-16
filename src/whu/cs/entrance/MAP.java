@@ -35,7 +35,7 @@ public class MAP {
 
 		int hitted = 0;
 		for (int edgePercent : edgePercents) {
-			String dirname = resPath + "sampled" + edgePercent + "percent\\";
+			String dirname = resPath + edgePercent + "\\";
 			bw.write(edgePercent + "\t");
 			long mapAvg = 0;
 			for (int f = 0; f < fold; f++) {
