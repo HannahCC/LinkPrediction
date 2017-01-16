@@ -17,7 +17,8 @@ public class EdgeSample {
 		String dataset = args[1];
 		boolean isConnected = Boolean.parseBoolean(args[2]);
 		int fold = Integer.parseInt(args[3]);
-		int n = args.length - 4;
+		int count_max = Integer.parseInt(args[4]);
+		int n = args.length - 5;
 		int[] edgePercents = new int[n];
 		String graphFile = rootPath + "graphs\\" + dataset;
 		String resPath = rootPath + "linkPredict_" + isConnected + "\\";
@@ -26,7 +27,7 @@ public class EdgeSample {
 		System.out.println("fold : " + fold);
 		System.out.print("edgePercents : ");
 		for (int i = 0; i < n; i++) {
-			edgePercents[i] = Integer.parseInt(args[4 + i]);
+			edgePercents[i] = Integer.parseInt(args[5 + i]);
 			System.out.print(edgePercents[i] + " ");
 		}
 		System.out.println();
@@ -54,19 +55,24 @@ public class EdgeSample {
 				for (int i = 0; i < sample; i++) {
 					int top = random.nextInt(nodes.size());
 					List<Integer> adjs = edgesCopy.get(top);
-					if (adjs.size() == 0 || (count < 3 && adjs.size() < 2)) {
+					if (adjs.size() == 0) {
+						i--;
+						continue;
+					}
+					if (count < count_max && adjs.size() < 2) {
 						count++;
 						i--;
 						continue;
 					}
 					int tail = adjs.get(random.nextInt(adjs.size()));
-					if (count < 3 && edgesCopy.get(tail).size() < 2) {
+
+					if (count < count_max && edgesCopy.get(tail).size() < 2) {
 						count++;
 						i--;
 						continue;
 					}
 					Utils.removeEdge(edgesCopy, top, tail);
-					if (count < 3 && isConnected
+					if (count < count_max && isConnected
 							&& !Utils.isConnected(edgesCopy)) {
 						Utils.addEdge(edgesCopy, top, tail);
 						count++;
