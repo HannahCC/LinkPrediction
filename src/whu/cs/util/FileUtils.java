@@ -191,7 +191,16 @@ public class FileUtils {
 		bw.flush();
 		bw.close();
 	}
-
+	public static void saveList(String filename, List<Edge> similars)
+			throws IOException {
+		File f = new File(filename);
+		BufferedWriter bw = new BufferedWriter(new FileWriter(f));
+		for (Edge s : similars) {
+			bw.write(s.toString() + "\r\n");
+		}
+		bw.flush();
+		bw.close();
+	}
 	public static BufferedWriter saveResInit(String filename, String feature,
 			int[] ks) throws IOException {
 		File f = new File(filename);
