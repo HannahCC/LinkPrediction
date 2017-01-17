@@ -16,7 +16,7 @@ public class LinkPredict {
 	public static void main(String[] args) throws IOException {
 		String rootPath = args[0];
 		String dataset = args[1];
-		boolean isConnected = Boolean.parseBoolean(args[2]);
+		boolean isDirected = Boolean.parseBoolean(args[2]);
 		int fold = Integer.parseInt(args[3]);
 		int k = Integer.parseInt(args[4]);
 		int n = Integer.parseInt(args[5]);
@@ -24,7 +24,7 @@ public class LinkPredict {
 		String feature = args[6 + n];
 
 		String graphFile = rootPath + "graphs\\" + dataset;
-		String resPath = rootPath + "linkPredict_" + isConnected + "\\";
+		String resPath = rootPath + "linkPredict_" + isDirected + "\\";
 		System.out.println("completed graphFile : " + graphFile);
 		System.out.println("resPath : " + resPath);
 		System.out.println("fold : " + fold);
@@ -37,6 +37,9 @@ public class LinkPredict {
 		System.out.println();
 		System.out.println("feature : " + feature);
 
+		if (isDirected) {
+			k /= 2;
+		}
 		List<String> nodes = new ArrayList<String>();
 		FileUtils.readGraph(graphFile, nodes);
 		for (int edgePercent : edgePercents) {
@@ -51,7 +54,6 @@ public class LinkPredict {
 				FileUtils.readVector(dirname + "predicts\\" + f + "\\"
 						+ feature + ".emb", nodeVectors);
 
-				String edge;
 				int size = nodes.size();
 				int id1, id2;
 				Edge[] similars = new Edge[k];
@@ -75,9 +77,8 @@ public class LinkPredict {
 								vector2);
 						if (similarity > similars[0].similarity) {
 							id2 = Integer.parseInt(nodes.get(j));
-							edge = id1 < id2 ? id1 + " " + id2 : id2 + " "
-									+ id1;
-							similars[0].edge = edge;
+							similars[0].id1 = id1;
+							similars[0].id2 = id2;
 							similars[0].similarity = similarity;
 							Utils.heapAdjust(similars, 0);
 						}
@@ -85,7 +86,7 @@ public class LinkPredict {
 				}
 				Arrays.sort(similars);
 				FileUtils.saveList(dirname + "predicts\\" + f + "\\" + feature
-						+ ".edgelist", similars);
+						+ ".edgelist", similars, isDirected);
 			}
 		}
 

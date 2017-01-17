@@ -16,7 +16,7 @@ public class LinkPredict_Complete {
 	public static void main(String[] args) throws IOException {
 		String rootPath = args[0];
 		String dataset = args[1];
-		boolean isConnected = Boolean.parseBoolean(args[2]);
+		boolean isDirected = Boolean.parseBoolean(args[2]);
 		int fold = Integer.parseInt(args[3]);
 		int k = Integer.parseInt(args[4]);
 		int n = Integer.parseInt(args[5]);
@@ -24,7 +24,7 @@ public class LinkPredict_Complete {
 		String feature = args[6 + n];
 
 		String graphFile = rootPath + "graphs\\" + dataset;
-		String resPath = rootPath + "linkPredict_" + isConnected + "\\";
+		String resPath = rootPath + "linkPredict_" + isDirected + "\\";
 		System.out.println("completed graphFile : " + graphFile);
 		System.out.println("resPath : " + resPath);
 		System.out.println("fold : " + fold);
@@ -37,6 +37,10 @@ public class LinkPredict_Complete {
 		System.out.println();
 		System.out.println("feature : " + feature);
 
+		if (isDirected) {
+			k /= 2;
+		}
+		
 		List<String> nodes = new ArrayList<String>();
 		FileUtils.readGraph(graphFile, nodes);
 		for (int edgePercent : edgePercents) {
@@ -75,7 +79,7 @@ public class LinkPredict_Complete {
 				}
 				Collections.sort(similars);
 				FileUtils.saveList(dirname + "predicts\\" + f + "\\" + feature
-						+ ".edgelist", similars);
+						+ ".edgelist", similars,isDirected);
 			}
 		}
 

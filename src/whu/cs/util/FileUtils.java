@@ -31,7 +31,6 @@ public class FileUtils {
 			String[] items = line.split("\\s+");
 			node = nodes.indexOf(items[0]);
 			if (node == -1) {
-				node = nodes.size();
 				nodes.add(items[0]);
 			}
 		}
@@ -47,7 +46,9 @@ public class FileUtils {
 		int node0, node1;
 		while (null != (line = br.readLine())) {
 			String[] items = line.split("\\s+");
-			if(items[0].equals(items[1])){System.out.println("self to self: "+line);}
+			if (items[0].equals(items[1])) {
+				System.out.println("self to self: " + line);
+			}
 			edgeNum++;
 			node0 = nodes.indexOf(items[0]);
 			node1 = nodes.indexOf(items[1]);
@@ -74,7 +75,7 @@ public class FileUtils {
 
 		}
 		br.close();
-		return edgeNum / 2;
+		return edgeNum;
 	}
 
 	public static void readVector(String vectorFile,
@@ -153,19 +154,21 @@ public class FileUtils {
 	}
 
 	public static void saveGraph(String sampledGraphFile, List<String> nodes,
-			int[][] sampled) throws IOException {
+			int[][] sampled, boolean isDirected) throws IOException {
 		File f = new File(sampledGraphFile);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(f));
 		String temp;
 		for (int i = 0, n = sampled.length; i < n; i++) {
 			String top = nodes.get(sampled[i][0]);
 			String tail = nodes.get(sampled[i][1]);
-			int topInt = Integer.parseInt(top);
-			int tailInt = Integer.parseInt(tail);
-			if (topInt > tailInt) {
-				temp = top;
-				top = tail;
-				tail = temp;
+			if (!isDirected) {
+				int topInt = Integer.parseInt(top);
+				int tailInt = Integer.parseInt(tail);
+				if (topInt > tailInt) {
+					temp = top;
+					top = tail;
+					tail = temp;
+				}
 			}
 			bw.write(top + " " + tail + "\r\n");
 
@@ -181,26 +184,42 @@ public class FileUtils {
 		}
 	}
 
-	public static void saveList(String filename, Edge[] similars)
-			throws IOException {
+	public static void saveList(String filename, Edge[] similars,
+			boolean isDirected) throws IOException {
 		File f = new File(filename);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-		for (Edge s : similars) {
-			bw.write(s.toString() + "\r\n");
+		if (isDirected) {
+			for (Edge s : similars) {
+				bw.write(s.toString() + "\r\n");
+				bw.write(s.traverse() + "\r\n");
+			}
+		} else {
+			for (Edge s : similars) {
+				bw.write(s.transfer() + "\r\n");
+			}
 		}
 		bw.flush();
 		bw.close();
 	}
-	public static void saveList(String filename, List<Edge> similars)
-			throws IOException {
+
+	public static void saveList(String filename, List<Edge> similars,
+			boolean isDirected) throws IOException {
 		File f = new File(filename);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-		for (Edge s : similars) {
-			bw.write(s.toString() + "\r\n");
+		if (isDirected) {
+			for (Edge s : similars) {
+				bw.write(s.toString() + "\r\n");
+				bw.write(s.traverse() + "\r\n");
+			}
+		} else {
+			for (Edge s : similars) {
+				bw.write(s.transfer() + "\r\n");
+			}
 		}
 		bw.flush();
 		bw.close();
 	}
+
 	public static BufferedWriter saveResInit(String filename, String feature,
 			int[] ks) throws IOException {
 		File f = new File(filename);
@@ -214,40 +233,43 @@ public class FileUtils {
 		return bw;
 	}
 
-	public static void saveRes(BufferedWriter bw, String info, double[] precision)
-			throws IOException {
-		bw.write(info+"\t");
+	public static void saveRes(BufferedWriter bw, String info,
+			double[] precision) throws IOException {
+		bw.write(info + "\t");
 		for (double s : precision) {
 			bw.write(df.format(s) + "\t");
 		}
 		bw.write("\r\n");
 	}
 
-	public static BufferedWriter saveResInit(String filename, String feature) throws IOException {
+	public static BufferedWriter saveResInit(String filename, String feature)
+			throws IOException {
 		File f = new File(filename);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(f, true));
 		bw.write(sdf.format(new Date()) + "\r\n");
 		bw.write(feature + "\r\n");
 		return bw;
 	}
-	
+
 	public static void saveRes(BufferedWriter bw, long res) throws IOException {
 		bw.write(df.format(res) + "\t");
 	}
 
-	public static void saveInfo(BufferedWriter bw, String info) throws IOException {
+	public static void saveInfo(BufferedWriter bw, String info)
+			throws IOException {
 		bw.write(info + "\r\n");
 	}
+
 	public static void saveResClose(BufferedWriter bw) throws IOException {
 		bw.flush();
 		bw.close();
 	}
 
-	public static void writeMap(String filename, Map<String, StringBuilder> map, int size)
-			throws IOException {
+	public static void writeMap(String filename,
+			Map<String, StringBuilder> map, int size) throws IOException {
 		File output_file = new File(filename);
 		BufferedWriter bw = new BufferedWriter(new FileWriter(output_file));
-		bw.write(map.size()+" "+size+"\r\n");
+		bw.write(map.size() + " " + size + "\r\n");
 		for (Entry<String, StringBuilder> entry : map.entrySet()) {
 			bw.write(entry.getKey() + " " + entry.getValue().toString().trim()
 					+ "\r\n");
@@ -256,6 +278,5 @@ public class FileUtils {
 		bw.close();
 
 	}
-
 
 }

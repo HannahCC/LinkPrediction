@@ -44,19 +44,20 @@ public class Utils {
 	}
 
 	public static void removeEdge(Map<Integer, List<Integer>> edges,
-			Integer top, Integer tail) {
+			Integer top, Integer tail, boolean isDirected) {
 		boolean flag = true;
 		List<Integer> adjs = edges.get(top);
 		flag = adjs.remove(tail);
 		if (!flag) {
-			System.out.println("can not find edge2 : " + top + ":" + tail);
+			System.out.println("can not find edge1 : " + top + ":" + tail);
 		}
-		adjs = edges.get(tail);
-		flag = adjs.remove(top);
-		if (!flag) {
-			System.out.println("can not find edge2 : " + tail + ":" + top);
+		if (!isDirected) {
+			adjs = edges.get(tail);
+			flag = adjs.remove(top);
+			if (!flag) {
+				System.out.println("can not find edge2 : " + tail + ":" + top);
+			}
 		}
-
 	}
 
 	public static void addEdge(Map<Integer, List<Integer>> edges, Integer top,
@@ -141,9 +142,12 @@ public class Utils {
 			double tmp1 = similars[idx].similarity;
 			similars[idx].similarity = similars[min].similarity;
 			similars[min].similarity = tmp1;
-			String tmp2 = similars[idx].edge;
-			similars[idx].edge = similars[min].edge;
-			similars[min].edge = tmp2;
+			int tmp2 = similars[idx].id1;
+			similars[idx].id1 = similars[min].id1;
+			similars[min].id1 = tmp2;
+			tmp2 = similars[idx].id2;
+			similars[idx].id2 = similars[min].id2;
+			similars[min].id2 = tmp2;
 			heapAdjust(similars, min);
 		}
 	}
