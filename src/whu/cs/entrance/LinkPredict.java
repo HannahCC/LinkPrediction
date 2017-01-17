@@ -67,7 +67,7 @@ public class LinkPredict {
 						continue;
 					id1 = Integer.parseInt(nodes.get(i));
 					for (int j = i + 1; j < size; j++) {
-						if (edges.get(i).contains(j)) {
+						if (edges.containsKey(i) && edges.get(i).contains(j)) {
 							continue;
 						}
 						double[] vector2 = nodeVectors.get(nodes.get(j));

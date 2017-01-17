@@ -13,14 +13,14 @@ public class PrecisionK {
 
 	public static void main(String args[]) throws IOException {
 		String rootPath = args[0];
-		boolean isConnected = Boolean.parseBoolean(args[1]);
+		boolean isDirected = Boolean.parseBoolean(args[1]);
 		int fold = Integer.parseInt(args[2]);
 		int kn = Integer.parseInt(args[3]);
 		int[] ks = new int[kn];
 		int en = Integer.parseInt(args[4 + kn]);
 		int[] edgePercents = new int[en];
 		String feature = args[5 + kn + en];
-		String resPath = rootPath + "linkPredict_" + isConnected + "\\";
+		String resPath = rootPath + "linkPredict_" + isDirected + "\\";
 		String resFile = resPath + "PrecisionAtK.txt";
 		System.out.println("resPath : " + resPath);
 		System.out.println("resFile : " + resFile);
