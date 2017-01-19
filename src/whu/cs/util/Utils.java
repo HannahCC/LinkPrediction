@@ -61,11 +61,26 @@ public class Utils {
 	}
 
 	public static void addEdge(Map<Integer, List<Integer>> edges, Integer top,
-			Integer tail) {
+			Integer tail, boolean isDirected) {
 		List<Integer> adjs = edges.get(top);
-		adjs.add(tail);
-		adjs = edges.get(tail);
-		adjs.add(top);
+		if (adjs == null) {
+			adjs = new ArrayList<Integer>();
+			adjs.add(tail);
+			edges.put(top, adjs);
+		} else {
+			adjs.add(tail);
+		}
+		if (!isDirected) {
+			adjs = edges.get(tail);
+			if (adjs == null) {
+				adjs = new ArrayList<Integer>();
+				adjs.add(top);
+				edges.put(tail, adjs);
+			} else {
+				adjs.add(top);
+			}
+		}
+
 	}
 
 	public static Map<Integer, List<Integer>> copyMap(
