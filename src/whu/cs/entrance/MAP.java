@@ -56,7 +56,7 @@ public class MAP {
 				for (int i = 0, s = predictEdge.size(); i < s; i++) {
 					if (sampledEdge.contains(predictEdge.get(i))) {
 						hitted++;
-						map += hitted / i;
+						map += hitted / (i+1);
 					}
 				}
 				map /= sampledEdge.size();
