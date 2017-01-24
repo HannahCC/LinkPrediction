@@ -33,11 +33,11 @@ public class MAP {
 
 		BufferedWriter bw = FileUtils.saveResInit(resFile, feature);
 
-		float hitted = 0;
+		double hitted = 0;
 		for (int edgePercent : edgePercents) {
 			String dirname = resPath + edgePercent + "\\";
 			bw.write(edgePercent + "\t");
-			long mapAvg = 0;
+			double mapAvg = 0;
 			for (int f = 0; f < fold; f++) {
 				System.out.println("start to calculate :" + edgePercent + "/"
 						+ f);
@@ -52,7 +52,7 @@ public class MAP {
 						+ feature + ".edgelist";
 				FileUtils.readList(predictFile, predictEdge);
 
-				long map = 0;
+				double map = 0;
 				for (int i = 0, s = predictEdge.size(); i < s; i++) {
 					if (sampledEdge.contains(predictEdge.get(i))) {
 						hitted++;

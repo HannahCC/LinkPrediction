@@ -251,7 +251,7 @@ public class FileUtils {
 		return bw;
 	}
 
-	public static void saveRes(BufferedWriter bw, long res) throws IOException {
+	public static void saveRes(BufferedWriter bw, double res) throws IOException {
 		bw.write(df.format(res) + "\t");
 	}
 
