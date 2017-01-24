@@ -18,7 +18,7 @@ import java.util.Set;
 import whu.cs.pojo.Edge;
 
 public class FileUtils {
-	static DecimalFormat df = new DecimalFormat("#.00");
+	static DecimalFormat df = new DecimalFormat("#.000000");
 	static SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");// 设置日期格式
 
 	public static void readGraph(String graphFile, List<String> nodes)
