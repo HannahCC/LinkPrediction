@@ -33,7 +33,7 @@ public class MAP {
 
 		BufferedWriter bw = FileUtils.saveResInit(resFile, feature);
 
-		int hitted = 0;
+		float hitted = 0;
 		for (int edgePercent : edgePercents) {
 			String dirname = resPath + edgePercent + "\\";
 			bw.write(edgePercent + "\t");
